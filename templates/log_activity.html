@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}Log Activity{% endblock %}
+{% block content %}
+<div class="container" style="max-width:750px;">
+  <h1 style="margin-bottom:0.5rem;">➕ Log a Green Action</h1>
+  <p style="color:var(--taupe);margin-bottom:1.5rem;">Every action counts. Select what you did today!</p>
+
+  <form method="POST" id="log-form">
+    <input type="hidden" name="activity_type" id="selected-activity">
+
+    <div class="activity-grid">
+      {% for key, info in activities.items() %}
+        <div class="activity-card" data-key="{{ key }}" onclick="selectActivity('{{ key }}')">
+          <span class="emoji">{{ info.emoji }}</span>
+          <div class="act-name">{{ info.label }}</div>
+          <div class="act-points">+{{ info.points }} pts</div>
+          <div style="font-size:0.75rem;color:var(--taupe);margin-top:0.3rem;">
+            💨 {{ info.co2_saved }} kg CO₂
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="form-group" style="margin-top:1.5rem;">
+      <label>Notes (optional)</label>
+      <textarea name="notes" rows="3" placeholder="Add any details about this action..."></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary" style="width:100%;font-size:1rem;padding:0.9rem;" id="submit-btn" disabled>
+      🌿 Log This Action
+    </button>
+  </form>
+</div>
+
+<script>
+function selectActivity(key) {
+  document.querySelectorAll('.activity-card').forEach(c => c.classList.remove('selected'));
+  document.querySelector(`[data-key="${key}"]`).classList.add('selected');
+  document.getElementById('selected-activity').value = key;
+  document.getElementById('submit-btn').disabled = false;
+}
+</script>
+{% endblock %}

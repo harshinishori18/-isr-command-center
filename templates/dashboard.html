@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="container">
+  <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:1.5rem;">
+    <h1>Welcome back, {{ current_user.username }} 👋</h1>
+    <span class="level-badge">{{ level_info.emoji }} {{ level_info.name }}</span>
+    <span class="streak-badge">🔥 {{ current_user.streak_days }}-day streak</span>
+    <span style="color:var(--taupe);font-size:0.9rem;">#{{ rank }} on leaderboard</span>
+  </div>
+
+  <div style="display:grid;grid-template-columns:auto 1fr;gap:1.5rem;align-items:start;flex-wrap:wrap;" class="dash-top">
+
+    <!-- Score Ring -->
+    <div class="card score-ring-wrapper" style="min-width:180px;text-align:center;">
+      <p class="card-title">ISR Score</p>
+      <div class="score-ring" style="--progress: {{ progress }}%;">
+        <div class="score-ring-inner">
+          <span class="score-number">{{ current_user.isr_score }}</span>
+          <span class="score-label">Points</span>
+        </div>
+      </div>
+      <div style="margin-top:0.75rem;">
+        <div class="progress-bar-wrap">
+          <div class="progress-bar-fill" style="width:{{ progress }}%;"></div>
+        </div>
+        {% if needed > 0 %}
+          <p style="font-size:0.78rem;color:var(--taupe);">{{ needed }} pts to {{ get_next_level(current_user.isr_score).name if get_next_level else 'Max Level' }}</p>
+        {% else %}
+          <p style="font-size:0.78rem;color:var(--olive);">🏆 Max Level Reached!</p>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Impact Stats -->
+    <div class="card">
+      <p class="card-title">🌍 Your Environmental Impact</p>
+      <div class="stats-row" style="margin:0;">
+        <div class="stat-card">
+          <div class="stat-number">{{ "%.1f"|format(current_user.co2_saved) }}</div>
+          <div class="stat-label">kg CO₂ Reduced</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">{{ current_user.trees_planted }}</div>
+          <div class="stat-label">🌳 Trees Planted</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">{{ (current_user.plastic_avoided / 1000)|round(2) }}</div>
+          <div class="stat-label">kg Plastic Avoided</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">{{ "%.1f"|format(current_user.volunteer_hours) }}</div>
+          <div class="stat-label">Volunteer Hours</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Log -->
+  <div style="margin-top:1.5rem;text-align:center;">
+    <a href="{{ url_for('log_activity') }}" class="btn btn-amber" style="font-size:1rem;padding:0.8rem 2rem;">
+      ➕ Log a Green Action Now
+    </a>
+  </div>
+
+  <!-- Recent Activity -->
+  <div class="card" style="margin-top:1.5rem;">
+    <p class="card-title">⏱️ Recent Activities</p>
+    {% if recent_activities %}
+      {% for act in recent_activities %}
+        {% set info = activities_catalog.get(act.activity_type, {}) %}
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:0.6rem 0;border-bottom:1px solid var(--sage);">
+          <span>{{ info.get('emoji','🌿') }} {{ info.get('label', act.activity_type) }}</span>
+          <span style="color:var(--olive);font-weight:700;">+{{ act.points_earned }} pts</span>
+          <span style="font-size:0.78rem;color:var(--taupe);">{{ act.timestamp.strftime('%d %b') }}</span>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p style="color:var(--taupe);">No activities yet. <a href="{{ url_for('log_activity') }}">Log your first action!</a></p>
+    {% endif %}
+  </div>
+
+  <!-- Earned Badges -->
+  {% if user_badges %}
+  <div class="card" style="margin-top:1.5rem;">
+    <p class="card-title">🏅 Earned Badges</p>
+    <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+      {% for ub in user_badges %}
+        <div style="text-align:center;">
+          <span style="font-size:2rem;">{{ ub.badge.emoji }}</span>
+          <div style="font-size:0.75rem;color:var(--mocha);">{{ ub.badge.name }}</div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+</div>
+{% endblock %}
