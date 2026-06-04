@@ -2,7 +2,7 @@
 {% block title %}Leaderboard{% endblock %}
 {% block content %}
 <div class="container">
-  <h1 style="margin-bottom:0.5rem;">🏆 Community Leaderboard</h1>
+  <h1 style="margin-bottom:0.4rem;">Community Leaderboard</h1>
   <p style="color:var(--taupe);margin-bottom:1.5rem;">Top climate heroes in Team Green Marshal.</p>
 
   <div class="card">
@@ -10,33 +10,33 @@
       <thead>
         <tr>
           <th>#</th>
-          <th>Warrior</th>
+          <th>Member</th>
           <th>Level</th>
-          <th>ISR Score</th>
-          <th>🌳 Trees</th>
-          <th>💨 CO₂ Saved</th>
-          <th>🔥 Streak</th>
+          <th>Score</th>
+          <th>Trees</th>
+          <th>CO₂ Saved</th>
+          <th>Streak</th>
         </tr>
       </thead>
       <tbody>
         {% for user in users %}
           {% set lvl = get_level(user.isr_score) %}
-          <tr {% if current_user.is_authenticated and user.id == current_user.id %}style="background:var(--sage);"{% endif %}>
+          <tr {% if current_user.is_authenticated and user.id == current_user.id %}style="background:rgba(197,208,152,0.18);"{% endif %}>
             <td>
-              {% if loop.index == 1 %}<span class="rank-gold">🥇</span>
-              {% elif loop.index == 2 %}<span class="rank-silver">🥈</span>
-              {% elif loop.index == 3 %}<span class="rank-bronze">🥉</span>
-              {% else %}<strong>#{{ loop.index }}</strong>{% endif %}
+              {% if loop.index == 1 %}<span class="rank-medal rank-1">I</span>
+              {% elif loop.index == 2 %}<span class="rank-medal rank-2">II</span>
+              {% elif loop.index == 3 %}<span class="rank-medal rank-3">III</span>
+              {% else %}<span style="color:var(--taupe);font-size:0.85rem;">#{{ loop.index }}</span>{% endif %}
             </td>
             <td>
               <strong>{{ user.username }}</strong>
-              <div style="font-size:0.78rem;color:var(--taupe);">{{ user.full_name }}</div>
+              <div style="font-size:0.76rem;color:var(--taupe);">{{ user.full_name }}</div>
             </td>
-            <td><span class="level-badge" style="font-size:0.78rem;">{{ lvl.emoji }} {{ lvl.name }}</span></td>
-            <td style="color:var(--olive);font-weight:700;font-size:1.05rem;">{{ user.isr_score }}</td>
+            <td><span class="level-badge" style="font-size:0.74rem;">{{ lvl.name }}</span></td>
+            <td style="color:var(--olive);font-weight:500;font-family:var(--font-display);font-size:1.05rem;">{{ user.isr_score }}</td>
             <td>{{ user.trees_planted }}</td>
             <td>{{ "%.1f"|format(user.co2_saved) }} kg</td>
-            <td>🔥 {{ user.streak_days }}</td>
+            <td>{{ user.streak_days }}d</td>
           </tr>
         {% else %}
           <tr><td colspan="7" style="text-align:center;color:var(--taupe);padding:2rem;">No members yet. Be the first!</td></tr>

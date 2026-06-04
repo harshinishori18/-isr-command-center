@@ -2,43 +2,43 @@
 {% block title %}Challenges{% endblock %}
 {% block content %}
 <div class="container">
-  <h1 style="margin-bottom:0.5rem;">🎯 Climate Challenges</h1>
+  <h1 style="margin-bottom:0.4rem;">Climate Challenges</h1>
   <p style="color:var(--taupe);margin-bottom:2rem;">Complete challenges to earn bonus points for your ISR Score.</p>
 
-  <h2 style="color:var(--olive);margin-bottom:1rem;">📅 Daily Challenges</h2>
+  <p class="card-title" style="margin-bottom:0.75rem;">Daily</p>
   {% for c in challenges if c.challenge_type == 'daily' %}
     <div class="challenge-card {% if c.id in completed_ids %}completed{% endif %}">
-      <div>
-        <strong>{{ c.title }}</strong>
-        <p style="font-size:0.85rem;color:var(--taupe);margin-top:0.2rem;">{{ c.description }}</p>
+      <div style="flex:1;">
+        <div class="challenge-title">{{ c.title }}</div>
+        <p class="challenge-desc">{{ c.description }}</p>
       </div>
-      <div style="text-align:right;min-width:120px;">
-        <div style="color:var(--olive);font-weight:700;">+{{ c.points_reward }} pts</div>
+      <div style="text-align:right;min-width:110px;flex-shrink:0;">
+        <div style="color:var(--olive);font-weight:500;font-family:var(--font-display);font-size:1.1rem;">+{{ c.points_reward }} pts</div>
         {% if c.id in completed_ids %}
-          <span style="color:var(--fern);font-size:0.85rem;">✅ Completed</span>
+          <span style="color:var(--fern);font-size:0.72rem;font-weight:500;letter-spacing:1px;text-transform:uppercase;">Completed</span>
         {% else %}
           <form method="POST" action="{{ url_for('complete_challenge', challenge_id=c.id) }}" style="margin-top:0.4rem;">
-            <button class="btn btn-primary" style="padding:0.4rem 1rem;font-size:0.85rem;">Mark Done</button>
+            <button class="btn btn-primary" style="padding:0.38rem 0.9rem;font-size:0.82rem;">Mark Done</button>
           </form>
         {% endif %}
       </div>
     </div>
   {% endfor %}
 
-  <h2 style="color:var(--amber);margin:2rem 0 1rem;">📆 Weekly Challenges</h2>
+  <p class="card-title" style="margin:2rem 0 0.75rem;">Weekly</p>
   {% for c in challenges if c.challenge_type == 'weekly' %}
     <div class="challenge-card weekly {% if c.id in completed_ids %}completed{% endif %}">
-      <div>
-        <strong>{{ c.title }}</strong>
-        <p style="font-size:0.85rem;color:var(--taupe);margin-top:0.2rem;">{{ c.description }}</p>
+      <div style="flex:1;">
+        <div class="challenge-title">{{ c.title }}</div>
+        <p class="challenge-desc">{{ c.description }}</p>
       </div>
-      <div style="text-align:right;min-width:120px;">
-        <div style="color:var(--amber);font-weight:700;">+{{ c.points_reward }} pts</div>
+      <div style="text-align:right;min-width:110px;flex-shrink:0;">
+        <div style="color:var(--amber);font-weight:500;font-family:var(--font-display);font-size:1.1rem;">+{{ c.points_reward }} pts</div>
         {% if c.id in completed_ids %}
-          <span style="color:var(--fern);font-size:0.85rem;">✅ Completed</span>
+          <span style="color:var(--fern);font-size:0.72rem;font-weight:500;letter-spacing:1px;text-transform:uppercase;">Completed</span>
         {% else %}
           <form method="POST" action="{{ url_for('complete_challenge', challenge_id=c.id) }}" style="margin-top:0.4rem;">
-            <button class="btn btn-amber" style="padding:0.4rem 1rem;font-size:0.85rem;">Mark Done</button>
+            <button class="btn btn-amber" style="padding:0.38rem 0.9rem;font-size:0.82rem;">Mark Done</button>
           </form>
         {% endif %}
       </div>

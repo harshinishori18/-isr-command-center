@@ -1,9 +1,9 @@
 {% extends "base.html" %}
-{% block title %}Register{% endblock %}
+{% block title %}Join{% endblock %}
 {% block content %}
-<div class="container" style="max-width:480px;">
+<div class="container" style="max-width:460px;">
   <div class="card" style="margin-top:2rem;">
-    <h2 style="margin-bottom:1.5rem;">🌱 Join ISR Command Center</h2>
+    <h2 style="margin-bottom:1.5rem;">Join ISR Command Center</h2>
     <form method="POST">
       <div class="form-group">
         <label>Full Name</label>
@@ -21,10 +21,10 @@
         <label>Password</label>
         <input type="password" name="password" required placeholder="Create a password">
       </div>
-      <button type="submit" class="btn btn-primary" style="width:100%;">Create Account 🌿</button>
+      <button type="submit" class="btn btn-primary" style="width:100%;letter-spacing:0.8px;text-transform:uppercase;font-size:0.85rem;">Create Account</button>
     </form>
-    <p style="margin-top:1rem;text-align:center;font-size:0.9rem;color:var(--taupe);">
-      Already have an account? <a href="{{ url_for('login') }}">Login</a>
+    <p style="margin-top:1rem;text-align:center;font-size:0.88rem;color:var(--taupe);">
+      Already have an account? <a href="{{ url_for('login') }}">Sign in</a>
     </p>
   </div>
 </div>

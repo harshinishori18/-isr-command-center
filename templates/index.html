@@ -9,7 +9,7 @@
     <p>Track your climate actions. Earn recognition. Build lasting habits. Every action is a step toward a planet worth protecting.</p>
     {% if not current_user.is_authenticated %}
       <a href="{{ url_for('register') }}" class="btn btn-amber">Join the Movement</a>
-      <a href="{{ url_for('login') }}" class="btn btn-outline" style="margin-left:0.8rem;border-color:rgba(197,208,152,0.5);color:var(--sage);">Sign In</a>
+      <a href="{{ url_for('login') }}" class="btn btn-outline" style="border-color:rgba(197,208,152,0.5);color:var(--sage);">Sign In</a>
     {% else %}
       <a href="{{ url_for('dashboard') }}" class="btn btn-amber">Go to Dashboard</a>
     {% endif %}
@@ -51,7 +51,7 @@
     </div>
     <div style="text-align:right;">
       <strong style="color:var(--olive);font-family:var(--font-display);font-size:1.2rem;">{{ user.isr_score }}</strong>
-      <div style="font-size:0.72rem;color:var(--taupe);letter-spacing:0.3px;">{{ user.trees_planted }} trees</div>
+      <div style="font-size:0.72rem;color:var(--taupe);">{{ user.trees_planted }} trees</div>
     </div>
   </div>
   {% endfor %}

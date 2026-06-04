@@ -2,19 +2,19 @@
 {% block title %}Badges{% endblock %}
 {% block content %}
 <div class="container">
-  <h1 style="margin-bottom:0.5rem;">🏅 Achievement Badges</h1>
+  <h1 style="margin-bottom:0.4rem;">Achievement Badges</h1>
   <p style="color:var(--taupe);margin-bottom:1.5rem;">Earn badges by reaching milestones in your sustainability journey.</p>
 
   <div class="badge-grid">
     {% for badge in all_badges %}
       <div class="badge-card {% if badge.id in earned_ids %}earned{% else %}locked{% endif %}">
-        <span class="badge-emoji">{{ badge.emoji }}</span>
+        <div style="width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,rgba(90,107,53,0.14),rgba(200,136,58,0.14));margin:0 auto 0.75rem;"></div>
         <div class="badge-name">{{ badge.name }}</div>
         <div class="badge-desc">{{ badge.description }}</div>
         {% if badge.id in earned_ids %}
-          <div style="margin-top:0.5rem;font-size:0.75rem;color:var(--olive);font-weight:700;">✅ Earned!</div>
+          <div class="badge-status-earned">Earned</div>
         {% else %}
-          <div style="margin-top:0.5rem;font-size:0.75rem;color:var(--taupe);">🔒 Locked</div>
+          <div class="badge-status-locked">Locked</div>
         {% endif %}
       </div>
     {% endfor %}

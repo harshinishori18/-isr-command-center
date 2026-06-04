@@ -1,9 +1,9 @@
 {% extends "base.html" %}
-{% block title %}Login{% endblock %}
+{% block title %}Sign In{% endblock %}
 {% block content %}
-<div class="container" style="max-width:440px;">
+<div class="container" style="max-width:420px;">
   <div class="card" style="margin-top:2rem;">
-    <h2 style="margin-bottom:1.5rem;">🔐 Login</h2>
+    <h2 style="margin-bottom:1.5rem;">Sign In</h2>
     <form method="POST">
       <div class="form-group">
         <label>Username or Email</label>
@@ -13,9 +13,9 @@
         <label>Password</label>
         <input type="password" name="password" required placeholder="Your password">
       </div>
-      <button type="submit" class="btn btn-primary" style="width:100%;">Login 🌿</button>
+      <button type="submit" class="btn btn-primary" style="width:100%;letter-spacing:0.8px;text-transform:uppercase;font-size:0.85rem;">Sign In</button>
     </form>
-    <p style="margin-top:1rem;text-align:center;font-size:0.9rem;color:var(--taupe);">
+    <p style="margin-top:1rem;text-align:center;font-size:0.88rem;color:var(--taupe);">
       New here? <a href="{{ url_for('register') }}">Create an account</a>
     </p>
   </div>
