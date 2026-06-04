@@ -3,16 +3,16 @@
 {% block content %}
 <div class="container">
   <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:1.5rem;">
-    <h1>Welcome back, <em>{{ current_user.username }}</em></h1>
+    <h1>Welcome back, {{ current_user.username }}</h1>
     <span class="level-badge">{{ level_info.name }}</span>
     <span class="streak-badge">{{ current_user.streak_days }}-day streak</span>
-    <span style="color:var(--taupe);font-size:0.88rem;">#{{ rank }} on leaderboard</span>
+    <span style="color:var(--taupe);font-size:0.9rem;">#{{ rank }} on leaderboard</span>
   </div>
 
-  <div style="display:grid;grid-template-columns:auto 1fr;gap:1.5rem;align-items:start;" class="dash-top">
+  <div class="dash-top">
 
     <!-- Score Ring -->
-    <div class="card score-ring-wrapper" style="min-width:170px;text-align:center;">
+    <div class="card score-ring-wrapper" style="text-align:center;">
       <p class="card-title">ISR Score</p>
       <div class="score-ring" style="--progress: {{ progress }}%;">
         <div class="score-ring-inner">
@@ -25,16 +25,16 @@
           <div class="progress-bar-fill" style="width:{{ progress }}%;"></div>
         </div>
         {% if needed > 0 %}
-          <p style="font-size:0.76rem;color:var(--taupe);">{{ needed }} pts to {{ get_next_level(current_user.isr_score).name if get_next_level else 'Max Level' }}</p>
+          <p style="font-size:0.78rem;color:var(--taupe);">{{ needed }} pts to {{ get_next_level(current_user.isr_score).name if get_next_level else 'Max Level' }}</p>
         {% else %}
-          <p style="font-size:0.76rem;color:var(--olive);">Max Level Reached</p>
+          <p style="font-size:0.78rem;color:var(--olive);">Max Level Reached!</p>
         {% endif %}
       </div>
     </div>
 
     <!-- Impact Stats -->
     <div class="card">
-      <p class="card-title">Environmental Impact</p>
+      <p class="card-title">Your Environmental Impact</p>
       <div class="stats-row" style="margin:0;">
         <div class="stat-card">
           <div class="stat-number">{{ "%.1f"|format(current_user.co2_saved) }}</div>
@@ -58,7 +58,7 @@
 
   <!-- Quick Log -->
   <div style="margin-top:1.5rem;text-align:center;">
-    <a href="{{ url_for('log_activity') }}" class="btn btn-amber" style="font-size:0.9rem;padding:0.8rem 2rem;letter-spacing:0.5px;">
+    <a href="{{ url_for('log_activity') }}" class="btn btn-amber" style="font-size:1rem;padding:0.8rem 2rem;">
       Log a Green Action
     </a>
   </div>
@@ -69,14 +69,14 @@
     {% if recent_activities %}
       {% for act in recent_activities %}
         {% set info = activities_catalog.get(act.activity_type, {}) %}
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:0.6rem 0;border-bottom:1px solid rgba(197,208,152,0.4);gap:0.5rem;flex-wrap:wrap;">
-          <span style="font-size:0.9rem;color:var(--mocha);">{{ info.get('label', act.activity_type) }}</span>
-          <span style="color:var(--olive);font-weight:500;font-family:var(--font-display);">+{{ act.points_earned }} pts</span>
-          <span style="font-size:0.76rem;color:var(--taupe);">{{ act.timestamp.strftime('%d %b') }}</span>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:0.6rem 0;border-bottom:1px solid rgba(197,208,152,0.45);">
+          <span>{{ info.get('label', act.activity_type) }}</span>
+          <span style="color:var(--olive);font-weight:700;">+{{ act.points_earned }} pts</span>
+          <span style="font-size:0.78rem;color:var(--taupe);">{{ act.timestamp.strftime('%d %b') }}</span>
         </div>
       {% endfor %}
     {% else %}
-      <p style="color:var(--taupe);">No activities yet. <a href="{{ url_for('log_activity') }}">Log your first action</a></p>
+      <p style="color:var(--taupe);">No activities yet. <a href="{{ url_for('log_activity') }}">Log your first action!</a></p>
     {% endif %}
   </div>
 
@@ -87,8 +87,8 @@
     <div style="display:flex;gap:1rem;flex-wrap:wrap;">
       {% for ub in user_badges %}
         <div style="text-align:center;">
-          <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,rgba(90,107,53,0.15),rgba(200,136,58,0.15));margin:0 auto 0.4rem;"></div>
-          <div style="font-size:0.73rem;color:var(--mocha);font-weight:500;">{{ ub.badge.name }}</div>
+          <span style="font-size:2rem;">{{ ub.badge.emoji }}</span>
+          <div style="font-size:0.75rem;color:var(--mocha);">{{ ub.badge.name }}</div>
         </div>
       {% endfor %}
     </div>
